@@ -17,3 +17,9 @@ Creación de carpetas para la data por id:
 -----------------------------------------
 
 En la ruta MiniGoogle/Minigoogle_core/ crear la carpeta archivos_id
+
+Ejecución desde console
+-----------------------------------------
+Ejecute el siguiente comando:
+
+g++ -std=c++11 -o out -g -Wall Main.cpp
