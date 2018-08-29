@@ -12,11 +12,11 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#include <windows.h>
 #include <stdio.h>
-#include <conio.h>
 #include <time.h>
 #include <cstdlib>
+#include <dirent.h>
+
 using namespace std;
 
 // Type definitions 

@@ -1,7 +1,6 @@
 #include "CCloud.h"
 
-template <class T>
-CCloud<T>::CCloud()
+CCloud::CCloud()
 {
 	palabra_actual = "";
 	documento_actual = -1;
@@ -9,136 +8,125 @@ CCloud<T>::CCloud()
 	ejecutando = false;
 }
 
-template <class T>
-CCloud<T>::CCloud(T_STRING nombre)
+CCloud::CCloud(T_STRING ruta)
 {
-	palabra_actual = move(nombre);
+	palabra_actual = move(ruta);
 	documento_actual = -1;
 	archivo = NULL;
 	ejecutando = false;
 }
-
-template <class T>
-T_INT CCloud<T>::Insertar(T_INT id_doc, T_INT bloque)
+CCloud::~CCloud()
 {
-	for (lista & actual : nucleo)
-	{
-		if (actual.id == id_doc)
-		{ 
-			actual.contenido.push_back(bloque);
-			return 1;
-		}
-			
-	}
-	lista nueva;
-	nueva.id = id_doc;
-	nueva.contenido.push_back(bloque);
-	nucleo.push_back(nueva);
-	return 2;
+	
+}
+void CCloud::gen_doc(){
+
 }
 
-template <class T>
-void CCloud<T>::setName(T_STRING nombre)
+int CCloud::abrir_doc(T_STRING ruta)
 {
-	palabra_actual = move(nombre);
-}
+	DIR *dir;
+	struct dirent *ent;
+	/*if ((dir = opendir ("/home/uburoxana/Documents/copia_git/MiniGoogle/Minigoogle_core/test")) != NULL) {
+  	
+  	closedir (dir);
+	} else {
+  	perror ("");
+  	return EXIT_FAILURE;
+	}*/
 
-template <class T>
-T_INT CCloud<T>::getNumber_doc()
-{
-	return nucleo.size();
-}
+	string  sufix_text= "spanishText_";
+	char buffer[1000];
+	//string fin_archivo= "</doc>";
 
-template <class T>
-void CCloud<T>::guardar()
-{
-	std::string temp;
-	fopen_s(&archivo, ("CCloud\\" + palabra_actual + ".txt").data(), "w+");
-	if (archivo == NULL)
-		return;
+	if ((dir = opendir ("/home/uburoxana/Documents/copia_git/MiniGoogle/Minigoogle_core/raw.es")) != NULL) {
+			while ((ent = readdir (dir)) != NULL) {
+				
+				archivo = fopen((ruta + ent->d_name).data(), "r");
+				//archivo = fopen((ruta + sufix_text + to_string(ruta_inicio)+ "_" + to_string(ruta_final)).data(), "r");
+				if (archivo==NULL)
+			  	{
+			    	//fputs ("fopen example",archivo);
+			    	fclose (archivo);
+			    	  	return -1;
 
-	for (lista & elem : nucleo)
-	{
-		temp = std::to_string(elem.id);
-		for (T_INT & ele_A:elem.contenido)
-		{
-			temp = temp + " " + std::to_string(ele_A);
-		}
-		temp = temp + "\n";
-		fwrite(temp.data(), sizeof(char), temp.length(), archivo);
+			  	}
+			  	else{
+			  		
+	  		
+	    			//printf ("%s\n", ent->d_name);
+	    			//puts("");
+			  		while ( fgets (buffer , 1000 , archivo) != NULL ){
+			  			
+			  			if(buffer[0]=='<' && buffer[1]=='/'){
+			  				//tercer caso
+			  				fclose (archivo_destino);
+			  				/*string error="error";
+			  				puts(error.data());*/
+			  			}
+			  			else if(buffer[0]=='<' && buffer[1]=='d'){
+			  				//primer caso
+			  				int index=0;
+				       		id=""; 
+				       		titulo=""; 
+
+				       		while(buffer[index]!='"')
+				       		{
+				       			index++;
+				       		}
+				       		index++;
+				       		while(buffer[index]!='"')
+				       		{
+				       			id+=buffer[index++];
+				       		}
+				       		//puts(id.data());
+							index++;
+				       		while(buffer[index]!='"')
+				       		{
+				       			index++;
+				       		}
+				       		index++;
+				       		while(buffer[index]!='"')
+				       		{
+				       			titulo+=buffer[index++];
+				       		}
+				       		//puts(titulo.data());
+				       		string ruta_nueva="archivos_id/";
+
+				       		archivo_destino = fopen((ruta_nueva + id + ".txt").data(), "w");
+				       		fputs(id.data(),archivo_destino);
+				       		fputs("\n",archivo_destino);
+				       		fputs(titulo.data(),archivo_destino);
+
+			  			}
+			  			else{
+			  				
+
+				       		//segundo caso
+			  				body="";
+				       		//int index=0;
+				       		body+=buffer;
+				       		fputs(body.data(), archivo_destino);
+
+			  			}
+
+		  			}
+  			}
+		
+
+		
+	  			
+
+	     	fclose (archivo);
+
+	  	}
+		
+
+
 	}
 	
-	fclose(archivo);
+  	return 0;
+
+	
 }
 
-template <class T>
-void CCloud<T>::Insertar(T_STRING nombre, T_INT id_doc, T_INT bloque)
-{
-	//obsoleto
-	if (!ejecutando)
-		abrir_doc(nombre);
-	if (nombre.compare(palabra_actual) != 0)
-		cambiar_doc(nombre);
-	 
-	std::string temp;
-	if (documento_actual == -1)
-	{
-		temp = std::to_string(id_doc);
-		fwrite(temp.data(), sizeof(char), temp.length(), archivo);
-		documento_actual = id_doc;
-		
-		temp = " "+std::to_string(bloque);
-		fwrite(temp.data(), sizeof(char), temp.length(), archivo);
-	}
-	else if (documento_actual == id_doc)
-	{
-		temp = " " + std::to_string(bloque);
-		fwrite(temp.data(), sizeof(char), temp.length(), archivo);
-	}
-	else
-	{
-		temp = "\n" + std::to_string(id_doc);
-		fwrite(temp.data(), sizeof(char), temp.length(), archivo);
-
-		temp = " " + std::to_string(bloque);
-		fwrite(temp.data(), sizeof(char), temp.length(), archivo);
-		documento_actual = id_doc;
-	}
-
-}
-
-
-template <class T>
-void CCloud<T>::abrir_doc(T_STRING nombre)
-{
-	fopen_s(&archivo, (nombre + ".txt").data(), "w+");
-	palabra_actual = nombre;
-	ejecutando = true;
-}
-
-template <class T>
-void CCloud<T>::cambiar_doc(T_STRING nombre)
-{
-	fclose(archivo);
-	fopen_s(&archivo, (nombre + ".txt").data(), "w+");
-	palabra_actual = nombre;
-	documento_actual = -1;
-}
-
-template <class T>
-CCloud<T>::~CCloud()
-{
-	_fcloseall();
-}
-
-template<class T>
-T_STRING CCloud<T>::GetName()
-{
-	return palabra_actual;
-}
-
-template<class T>
-NUMBER_LINES CCloud<T>::GetNumberLines()
-{
-	return nucleo.size();
-}
