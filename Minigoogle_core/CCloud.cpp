@@ -97,6 +97,8 @@ int CCloud::abrir_doc(T_STRING ruta)
 				       		fputs(id.data(),archivo_destino);
 				       		fputs("\n",archivo_destino);
 				       		fputs(titulo.data(),archivo_destino);
+				       		fputs("\n",archivo_destino);
+
 
 			  			}
 			  			else{
