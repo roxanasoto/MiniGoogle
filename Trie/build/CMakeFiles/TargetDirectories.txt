@@ -1,0 +1,3 @@
+/home/david/Escritorio/preText/Trie/build/CMakeFiles/rebuild_cache.dir
+/home/david/Escritorio/preText/Trie/build/CMakeFiles/main_exe.dir
+/home/david/Escritorio/preText/Trie/build/CMakeFiles/edit_cache.dir
