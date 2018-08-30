@@ -56,6 +56,15 @@ int Tree::Prefix(string key_a, string key_b) { // length of the biggest common p
 Node* Tree::Find(string key) {
 	return Find(root, key);
 }
+set<tuple<int, int>, greater<tuple<int,int>>> Tree::search(string key){
+	Node* rpta = Find(root, key);
+	if(rpta != 0){
+		cout<<"results done..."<<rpta->printTuples()<<endl;
+		
+		return rpta->getTuples();
+	}
+	cout<<"not results..."<<endl;
+}
 
 Node* Tree::Find(Node* node, string key) {
 	if (!node) {
@@ -67,67 +76,64 @@ Node* Tree::Find(Node* node, string key) {
 	} if (k < node->GetLength()) {//el nodo actual no esta particionado para el prefijo buscado
 		return 0;
 	} if (k == key.length()) {
-		return node;
+		if(node->noTuples()>0)
+			return node;
+		return 0;
 	}
 	return Find(node->Child(), key.substr(k, key.length()));
 }
 
-void Tree::Split(Node* node, int k, int idDoc) { // dividing node according to k key symbol
+void Tree::Split(Node* node, int k, int freq,int idDoc) { // dividing node according to k key symbol
 //crear un nuevo nodo con el sufijo no repetido
 	Node* p = new Node(node->GetKey().substr(k, node->GetLength()), node->GetLength() - k, node->GetCounter());
 	// p->setFlacLeaf(leaf);
 	p->Child() = node->Child();
 
 	// Word word; word.id=idDoc;
-	p->addDocument(idDoc);
+	// p->addDocument(idDoc);
+	if(node->GetCounter()>0){
+		p->setTuples(node->getTuples());
+	}
+	if(node->noTuples()>0)
+		p->addTuple(freq,idDoc);
+	
+	
+
 	node->Child() = p;
 	node->GetKey().erase(k, node->GetLength()); //recortar string en nodo padre
 	node->SetLength(k);
+	
 	node->GetCounter() = 0;
-	node->cleanDocuments();
-	// (node->getIdsDocuments())->push_back(idDoc);
-	// node->setFlacLeaf(noleaf);
+	// node->cleanDocuments();
+
+	node->cleanTuples();
 }
 
-// bool Tree::indexDocument(vector<string> words){
-// 	// if(root!=NULL){
-// 	// 	this->restarCounters();
-// 	// }
-// 	// if(words){
-// 		// Node* p;
-// 		for(int i=0;i<words.size();i++){
-			
-// 			Node* p = Insert(root, words[i], 1, words->docId);
-// 			if (!root) {
-// 				root = p;
-// 			}
-// 			// cout<<words[i]<<endl;
-// 		}
-// 		return true;
-// 	// }
-// 	// return false;
-	
-	
-// }
 bool Tree::indexDocument(WordList* words){
 	// if(root!=NULL){
 	// 	this->restarCounters();
 	// }
-	vector<string> vec;
-	for(int i=0;i<words->wordList.size();i++){
-		// vec=words->wordList;
+	// vector<string> vec;
+	map<string,int> map = words->wordList;
+	cout<<"=========indexando doc N°: "<<words->docId<<endl;
+	// for(int i=0;i<words->wordList.size();i++){
+	for (std::map<string,int>::iterator it=map.begin(); it!=map.end(); ++it){
+		cout<<"============palabra a insertar: "<<it->first<<endl;
+		// cout<<"word: "<<it->first<<", it: "<<it->second<<endl;
+		// map<string,int> map=words->wordList;
 		//modificar...
-		Node* p = Insert(root, 1, 1, words->docId);
+		Node* p = Insert(root,it->first,1 ,it->second,words->docId);
 		if (!root) {
 			root = p;
 		}
+		printTree();
 	}
 	return true;
 }
 
-bool Tree::Insert(string key, int number,int idDoc) {
+bool Tree::Insert(string key, int number,int freq,int idDoc) {
 	// cout<<"se inserto"<<endl;
-	Node* p = Insert(root, key, number,idDoc);
+	Node* p = Insert(root, key, number,freq,idDoc);
 
 	if (!root) {
 		root = p;
@@ -137,48 +143,51 @@ bool Tree::Insert(string key, int number,int idDoc) {
 }
 
 
-Node* Tree::Insert(Node* node, string key, int number, int idDoc) { // inserting key in tree
+Node* Tree::Insert(Node* node, string key, int number, int freq,int idDoc) { // inserting key in tree
 	// int counter_anterior;
 	// if(node != NULL)
 	// 	counter_anterior = node->GetCounter();
 	if (!node) {
 		Node* n = new Node(key, key.length(), number);
 		// Word word; word.id=idDoc;
-		n->addDocument(idDoc);
+		// n->addDocument(idDoc);
+		n->addTuple(freq,idDoc);
 		return n;
 	}
 	unsigned int k = Prefix(key, node->GetKey());
 	if (k == 0) {
-		node->Brother() = Insert(node->Brother(), key, number,idDoc);
+		node->Brother() = Insert(node->Brother(), key, number,freq,idDoc);
 		return node;
 	} if (k < node->GetLength()) { // cut or not to cut?
-		Split(node, k,idDoc);
+		Split(node, k,freq,idDoc);
 		if (k < key.length()) {
-			node->Child() = Insert(node->Child(), key.substr(k, key.length()), number,idDoc);
+			node->Child() = Insert(node->Child(), key.substr(k, key.length()), number,freq,idDoc);
 		}
 		else{
 			
 			node->GetCounter() += number;
+			node->addTuple(freq,idDoc);
 			// if(node->GetCounter() !=0 && idLastDoc >0 && idLastDoc!=idDoc){
-			if(node->GetCounter() !=0 && node->GetCounter()<=1){
-				// Word word; word.id=idDoc;
-				node->addDocument(idDoc);
-			// if(node->GetCounter()!=0 && node->noDocuments()>0){
+			// if(node->GetCounter() !=0 && node->GetCounter()<=1){
+			// 	// Word word; word.id=idDoc;
+			// 	node->addDocument(idDoc);
+			// // if(node->GetCounter()!=0 && node->noDocuments()>0){
 
-			}
+			// }
 				
 		}
 		return node;
 	} if (k < key.length()) {
-		node->Child() = Insert(node->Child(), key.substr(k, key.length()), number,idDoc);
+		node->Child() = Insert(node->Child(), key.substr(k, key.length()), number,freq,idDoc);
 	}
 	else {
 		node->GetCounter() += number;
+		node->addTuple(freq,idDoc);
 		// if(node->GetCounter()!=0&& node->GetCounter()<2)
-		if(node->GetCounter()!=0 && node->GetCounter()<=1){
-			// Word word; word.id=idDoc;
-			node->addDocument(idDoc);
-		}
+		// if(node->GetCounter()!=0 && node->GetCounter()<=1){
+		// 	// Word word; word.id=idDoc;
+		// 	node->addDocument(idDoc);
+		// }
 			
 	}
 	return node;
@@ -194,7 +203,7 @@ void Tree::printTree() {
 void Tree::printNode(Node* node) {
 	// cout<<"clave: ";
 	if(node){
-		cout<<node->GetKey()<<", "<<node->GetCounter()<<node->printDocuments()<<endl;;
+		cout<<node->GetKey()<<", "<<node->GetCounter()<<node->printTuples()<<endl;;
 		printNode(node->Child());
 		printNode(node->Brother());
 	}

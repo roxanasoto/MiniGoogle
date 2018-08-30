@@ -1,6 +1,9 @@
 #include<iostream>
 #include<vector>
 #include "types.h"
+#include <tuple> 
+#include <set> 
+#include <algorithm>
 using namespace std;
 
 class Node{
@@ -12,6 +15,7 @@ private:
 	Node* child;
 	Node* slibing;
 	vector<int>* documents;
+	set<tuple<int, int>, greater<tuple<int,int>> > tuples;
 	// int idDoc;
 	// char flacLeaf;
 
@@ -27,12 +31,21 @@ public:
 	int& GetCounter();
 	Node*& Child();
 	Node*& Brother();
-	vector<int>*& getIdsDocuments();
-	void addDocument(int);
-	string printDocuments();
-	void cleanDocuments();
-	int noDocuments();
+	// vector<int>*& getIdsDocuments();
+	// void addDocument(int);
+	// string printDocuments();
+	// void cleanDocuments();
+
+	// int noDocuments();
+	int noTuples();
 	int getContador();
+	void addTuple(int freq, int idDoc);
+	void cleanTuples();
+	string printTuples();
+	void setTuples(set<tuple<int, int>, greater<tuple<int,int>> >);
+	set<tuple<int, int>, greater<tuple<int,int>>> getTuples();
+	bool removeTuple(int freq,int idDoc);
+	set<tuple<int, int>>::iterator findTuple(int idDoc);
 	// void setFlacLeaf(char);
 	// char getFlacLeaf();
 

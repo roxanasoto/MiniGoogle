@@ -24,10 +24,10 @@ public:
 	int Prefix(string, string);
     Node* Find(string);
 	Node* Find(Node*, string);
-	void Split(Node*, int, int);
-	bool Insert(string, int,int);
+	void Split(Node*, int, int freq,int idDoc);
+	bool Insert(string key, int counter, int freq,int idDoc);
 	
-	Node* Insert(Node*,string , int, int);
+	Node* Insert(Node*,string key, int counter, int freq,int idDoc);
 	void TraversalSave(Node*, ofstream&);
 	void Save(string);
 	void TraversalLoad(Node*&, ifstream&, istringstream&);
@@ -41,5 +41,6 @@ public:
 	void setIdLastDocument(int);
 	void restarCounters();
 	void restarCounters(Node*);
+	set<tuple<int, int>, greater<tuple<int,int>>> search(string);
 	// bool Insert(Word);
 };

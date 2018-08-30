@@ -60,7 +60,7 @@ void LookForIntersection(tuple<int,int> t)
 {       
     int count = 0;
     cout << "---" << endl;
-    set<tuple<int, int>>::iterator it = find_if(v2.begin(), v2.end(), [&t](const auto& item) 
+    set<tuple<int, int>>::iterator it = find_if(v2.begin(), v2.end(), [&t](const tuple<int, int>& item) 
     {
         return get<1>(t) == get<1>(item);
     });
