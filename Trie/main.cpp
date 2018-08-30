@@ -97,29 +97,46 @@ int main()
 	parser->LoadStopWords("../stopWords.txt");	
 	int i=1;
 	bool newDoc = true;
-	for(int i = 1; i<5; ++i)
-	{		
-		wordlist->docId = i;	
-		wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
-		// printWordList(wordlist);
+	// for(int i = 1; i<5; ++i)
+	// {		
+	// 	wordlist->docId = i;	
+	// 	wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
+	// 	// printWordList(wordlist);
 		
-		trie.indexDocument(wordlist);
+	// 	trie.indexDocument(wordlist);
 
-		// trie.printTree();
-		wordlist->docId = 0;
-		wordlist->wordList.clear();
-	}
+	// 	// trie.printTree();
+	// 	wordlist->docId = 0;
+	// 	wordlist->wordList.clear();
+	// }
 	// trie.printTree();
 
-	// wordlist->wordList = parser->ParseFile("../Docs/4.txt");
-	// printWordList(wordlist);
-	// trie.indexDocument(wordlist);
-	// wordlist->docId = 2;
-	// wordlist->wordList.clear();
-	// wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
-	// printWordList(wordlist);
-	// trie.indexDocument(wordlist);
-	
+	wordlist->docId = 1;
+	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
+	printWordList(wordlist);
+	trie.indexDocument(wordlist);
+	trie.printTree();
+
+	wordlist->docId = 2;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
+	printWordList(wordlist);
+	trie.indexDocument(wordlist);
+	trie.printTree();
+
+	wordlist->docId = 3;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d3.txt");
+	printWordList(wordlist);
+	trie.indexDocument(wordlist);
+	trie.printTree();
+
+	wordlist->docId = 4;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d4.txt");
+	printWordList(wordlist);
+	trie.indexDocument(wordlist);
+	trie.printTree();
 	// trie.Insert("obisp",1,8,5);
 	// trie.printTree();
 
@@ -139,14 +156,18 @@ int main()
 	// trie.Insert("ombligos",1,1,7);
 	// trie.printTree();
 	
-	cout<<"----test busqueda(1 palabra)---------"<<endl;
-	trie.search("canada");
-	trie.search("cana");
-	trie.search("africa");
-	trie.search("david");
-	trie.search("himno");
-	trie.search("test");
-
+	// cout<<"----test busqueda(1 palabra)---------"<<endl;
+	// trie.search("historia");
+	// trie.search("cana");
+	// trie.search("africa");
+	// trie.search("david");
+	// trie.search("himno");
+	// trie.search("test");
+		cout<<"----test busqueda(n palabras)---------"<<endl;
+		vector<string> oracion; oracion.push_back("historia"); oracion.push_back("computacion");
+	trie.search(oracion);
+	// trie.search("computacion");
+	// trie.search("historia");
 	
 	// cout<<"----test busqueda(n palabras)---------"<<endl;
 	// masive_search(&trie);

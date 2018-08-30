@@ -42,6 +42,6 @@ public:
 	void restarCounters();
 	void restarCounters(Node*);
 	set<tuple<int, int>, greater<tuple<int,int>>> search(string);
-	set<tuple<int, int>, greater<tuple<int,int>>> search(vector<string>);
+	bool search(vector<string>);
 	// bool Insert(Word);
 };

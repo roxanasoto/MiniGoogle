@@ -68,26 +68,75 @@ set<tuple<int, int>, greater<tuple<int,int>>> Tree::search(string key){
 	cout<<" not results..."<<endl;
 	return docs;
 }
-// set<tuple<int, int>, greater<tuple<int,int>>> Tree::search(vector<string> keys){
-// 	for(int i=0;i<keys.size();i++){
-// 		Node* rpta = Find(root, keys[i]);
-// 		set<tuple<int, int>, greater<tuple<int,int>>> docs;
-// 		if(rpta != 0){
+bool Tree::search(vector<string> keys){
+	vector<set<tuple<int, int>, greater<tuple<int,int>>>> docs;
+	// set<tuple<int, int>, greater<tuple<int,int>>> docs;
+	Node* rpta;
+	for(int i=0;i<keys.size();i++){
+		rpta = Find(root, keys[i]);
+		if(rpta != 0){
+			cout<<" is done..."<<endl;
+			docs.push_back(rpta->getTuples());
+		}
+		else{
+			cout<<" not results..."<<endl;
+		}
+	}
+	if(docs.size()>0){
+		int index_min_set=0;
+		int minsize = docs[0].size();
+		for(int i=1;i<docs.size();i++){ //buscar el set con menos conjuntos de elementos
+			if(docs[i].size()<minsize){
+				minsize = docs[i].size();
+				index_min_set = i;
+			}
+		}
+		cout<<" minsize: "<<minsize<<" index: "<<index_min_set<<endl;
+		map<int,int> intersecciones;
+		tuple<int, int> element;
+		map<int, int>::iterator map_it;
+		int idDoc;
+		vector<int> idsDoc;
+		for (set<tuple<int, int>>::iterator i = docs[index_min_set].begin(); i != docs[index_min_set].end(); i++) 
+		{
+			element = *i;
+			// idDoc = get<0>(element);
+			// map_it = intersecciones.find(idDoc);
+			// if(map_it!=intersecciones.end()){
+			// 	intersecciones.insert(pair<int,int>(get<0>(element),0));
+			// 	cout<< get<0>(element) <<" - " << get<1>(element)<<endl;
+			// }	
+			// cout<<" 0 element: "<<get<1>(element)<<endl;
+			intersecciones.insert(pair<int,int>(get<1>(element),0));
+		}
 
-// 		}
-// 	}
-	
-// 	// cout<<"Buscando: "<<key<<"..."<<endl;
-// 	// Node* rpta = Find(root, key);
-// 	// set<tuple<int, int>, greater<tuple<int,int>>> docs;
-// 	// if(rpta != 0){
-// 	// 	cout<<" results done..."<<rpta->printTuples()<<endl;
-// 	// 	// set<tuple<int, int>, greater<tuple<int,int>>> docs = rpta->getTuples();
-// 	// 	return rpta->getTuples();
-// 	// }
-// 	// cout<<" not results..."<<endl;
-// 	// return docs;
-// }
+		//recorrer set de tamaño minimo
+		for (set<tuple<int, int>>::iterator i = docs[index_min_set].begin(); i != docs[index_min_set].end(); i++) 
+		{
+			element = *i;
+			for(int i=1;i<docs.size() && i!=index_min_set;i++){ //acceder a los demas sets para buscar interseccion de ids.
+				// busqueda binaria: buscar la tupla del set minimo en los demas sets.
+				set<tuple<int, int>>::iterator it = find_if(docs[i].begin(), docs[i].end(), [&element](const tuple<int, int>& item) 
+				{
+					return get<1>(element) == get<1>(item);
+				});
+				if(it!=docs[i].end()){
+					intersecciones[get<1>(element)]+=1;
+					// idsDoc.push_back();
+					// cout<<"fallo buscando un documento con todas las palabras "<<intersecciones.size()<<endl;
+				}
+			}
+		}
+		for (map_it=intersecciones.begin(); map_it!=intersecciones.end(); map_it++){
+			cout<<map_it->first<<": "<<map_it->second<<endl;
+		}
+		// cout<<" map size: "<<intersecciones.size()<<endl;
+	}
+	else{
+		cout<<"ningun documento contiene toda la oracion..."<<endl;
+	}
+	return true;
+}
 
 Node* Tree::Find(Node* node, string key) {
 	if (!node) {

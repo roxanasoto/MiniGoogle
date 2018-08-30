@@ -14,3 +14,5 @@ paulo => 3
 peligro => 1
 octavio
 ombligo
+
+computacion
