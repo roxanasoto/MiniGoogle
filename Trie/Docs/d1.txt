@@ -11,3 +11,6 @@ paso => 1
 pauli => 1
 paulo => 3
 peligro => 1
+caña
+cabaña
+cabaña

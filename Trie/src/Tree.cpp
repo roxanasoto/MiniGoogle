@@ -57,16 +57,37 @@ Node* Tree::Find(string key) {
 	return Find(root, key);
 }
 set<tuple<int, int>, greater<tuple<int,int>>> Tree::search(string key){
+	cout<<"Buscando: "<<key<<"..."<<endl;
 	Node* rpta = Find(root, key);
 	set<tuple<int, int>, greater<tuple<int,int>>> docs;
 	if(rpta != 0){
-		cout<<"results done..."<<rpta->printTuples()<<endl;
+		cout<<" results done..."<<rpta->printTuples()<<endl;
 		// set<tuple<int, int>, greater<tuple<int,int>>> docs = rpta->getTuples();
 		return rpta->getTuples();
 	}
-	cout<<"not results..."<<endl;
+	cout<<" not results..."<<endl;
 	return docs;
 }
+// set<tuple<int, int>, greater<tuple<int,int>>> Tree::search(vector<string> keys){
+// 	for(int i=0;i<keys.size();i++){
+// 		Node* rpta = Find(root, keys[i]);
+// 		set<tuple<int, int>, greater<tuple<int,int>>> docs;
+// 		if(rpta != 0){
+
+// 		}
+// 	}
+	
+// 	// cout<<"Buscando: "<<key<<"..."<<endl;
+// 	// Node* rpta = Find(root, key);
+// 	// set<tuple<int, int>, greater<tuple<int,int>>> docs;
+// 	// if(rpta != 0){
+// 	// 	cout<<" results done..."<<rpta->printTuples()<<endl;
+// 	// 	// set<tuple<int, int>, greater<tuple<int,int>>> docs = rpta->getTuples();
+// 	// 	return rpta->getTuples();
+// 	// }
+// 	// cout<<" not results..."<<endl;
+// 	// return docs;
+// }
 
 Node* Tree::Find(Node* node, string key) {
 	if (!node) {
@@ -111,25 +132,18 @@ void Tree::Split(Node* node, int k, int freq,int idDoc) { // dividing node accor
 }
 
 bool Tree::indexDocument(WordList* words){
-	// if(root!=NULL){
-	// 	this->restarCounters();
-	// }
-	// vector<string> vec;
 	map<string,int> map = words->wordList;
 	cout<<"=========indexando doc N°: "<<words->docId<<endl;
 	// for(int i=0;i<words->wordList.size();i++){
 		int i=1;
 	for (std::map<string,int>::iterator it=map.begin(); it!=map.end(); ++it){
-		cout<<"============palabra a insertar: "<<i<<" "<<it->first<<endl;
+		// cout<<"============palabra a insertar: "<<i<<" "<<it->first<<endl;
 		i++;
-		// cout<<"word: "<<it->first<<", it: "<<it->second<<endl;
-		// map<string,int> map=words->wordList;
-		//modificar...
 		Node* p = Insert(root,it->first,1 ,it->second,words->docId);
 		if (!root) {
 			root = p;
 		}
-		printTree();
+		// printTree();
 	}
 	return true;
 }
@@ -147,13 +161,8 @@ bool Tree::Insert(string key, int number,int freq,int idDoc) {
 
 
 Node* Tree::Insert(Node* node, string key, int number, int freq,int idDoc) { // inserting key in tree
-	// int counter_anterior;
-	// if(node != NULL)
-	// 	counter_anterior = node->GetCounter();
 	if (!node) {
 		Node* n = new Node(key, key.length(), number);
-		// Word word; word.id=idDoc;
-		// n->addDocument(idDoc);
 		n->addTuple(freq,idDoc);
 		return n;
 	}

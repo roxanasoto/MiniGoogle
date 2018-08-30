@@ -97,55 +97,63 @@ int main()
 	parser->LoadStopWords("../stopWords.txt");	
 	int i=1;
 	bool newDoc = true;
-	// for(int i = 1; i<2; ++i)
-	// {		
-	// 	wordlist->docId = i;	
-	// 	wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
-	// 	// printWordList(wordlist);
+	for(int i = 1; i<5; ++i)
+	{		
+		wordlist->docId = i;	
+		wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
+		// printWordList(wordlist);
 		
-	// 	trie.indexDocument(wordlist);
+		trie.indexDocument(wordlist);
 
-	// 	// trie.printTree();
-	// 	wordlist->docId = 0;
-	// 	wordlist->wordList.clear();
-	// }
+		// trie.printTree();
+		wordlist->docId = 0;
+		wordlist->wordList.clear();
+	}
 	// trie.printTree();
 
-	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
-	printWordList(wordlist);
-	trie.indexDocument(wordlist);
-	wordlist->docId = 2;
-	wordlist->wordList.clear();
-	wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
-	printWordList(wordlist);
-	trie.indexDocument(wordlist);
+	// wordlist->wordList = parser->ParseFile("../Docs/4.txt");
+	// printWordList(wordlist);
+	// trie.indexDocument(wordlist);
+	// wordlist->docId = 2;
+	// wordlist->wordList.clear();
+	// wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
+	// printWordList(wordlist);
+	// trie.indexDocument(wordlist);
 	
-	trie.Insert("obisp",1,8,5);
-	trie.printTree();
+	// trie.Insert("obisp",1,8,5);
+	// trie.printTree();
 
-	trie.Insert("opera",1,8,5);
-	trie.printTree();
+	// trie.Insert("opera",1,8,5);
+	// trie.printTree();
 
-	trie.Insert("ope",1,14,6);
-	trie.printTree();
+	// trie.Insert("ope",1,14,6);
+	// trie.printTree();
 
-	trie.Insert("o",1,1,7);
-	trie.printTree();
+	// trie.Insert("o",1,1,7);
+	// trie.printTree();
 
-trie.Insert("ombligo",1,5,3);
-trie.Insert("ombligo",1,6,4);
-	trie.printTree();
+	// trie.Insert("ombligo",1,5,3);
+	// trie.Insert("ombligo",1,6,4);
+	// trie.printTree();
 	
-	trie.Insert("ombligos",1,1,7);
-	trie.printTree();
+	// trie.Insert("ombligos",1,1,7);
+	// trie.printTree();
 	
 	cout<<"----test busqueda(1 palabra)---------"<<endl;
 	trie.search("canada");
 	trie.search("cana");
+	trie.search("africa");
+	trie.search("david");
+	trie.search("himno");
+	trie.search("test");
 
 	
 	// cout<<"----test busqueda(n palabras)---------"<<endl;
 	// masive_search(&trie);
+
+	// string entrada;
+	// cin>>entrada;
+	// cout<<"escribiste esto?: "<<entrada<<endl;
 
 	
 
