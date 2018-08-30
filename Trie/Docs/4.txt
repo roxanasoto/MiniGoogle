@@ -1,51 +1,21 @@
 4
-Negroide
-Con el término negroide se designa en antropología a los restos óseos propios de la variante humana africana, cuya principal característica es una constitución más densa que los caucasoides y mongoloides. Es una de las cuatro razas principales reconocidas por las teorías raciales del siglo XIX y de las tres reconocidas por la antropologia actual. El término negroide hace referencia también a una clasificación de las tipologías craneanas humanas propia de África y actualmente puede ser considerado ofensivo fuera de un contexto forense o arqueológico. Actualmente se le llama raza negra.
+Fagot
+El fagot es un instrumento musical de viento-madera con doble lengüeta, y primo del oboe y del heckelfono. Ocasionalmente se lo considera como familia del oboe, por su textura similar, sin embargo, el fagot casi duplica el rango del oboe, aunque son sin embargo, instrumentos muy emparentados. Su tesitura es de 3 octavas y media y se puede dividir en 4 registros: grave, medio, agudo y sobre agudo.
 
-Dado que la mayoría de los restos con estas características pertenecen a étnias africanas, se ha identificado con grupos de pueblos cuya principal característica es el color oscuro de su piel, identificadolo con la raza negra de la antropología clásica. Estos individuos se caracterizan, por lo general, por tener una tez negra o muy oscura, cabeza larga, frente más o menos abombada, nariz chata y ancha, labios gruesos, pelo negro y muy rizado, estatura alta (hasta 1.70 m) y piernas cortas.
+El fagot tiene una altura de 156 cm. aproximadamente y una longitud total del taladro de 250 cm. El fagot debe su existencia a la necesidad musical de ampliar la región grave del sonido de los instrumentos de viento. 
 
-Los estudios de ADN mitocondrial han mostrado que las poblaciones nativas autraliana, melanesia y en parte del sur de la India y África Oriental, tienen relación con los caucásicos, mongoloides, y amerindios. Los bosquimanos parecen asimismo representar una rama diferenciada, tanto por la línea femenina como por la masculina. Así el concepto de negro de la antropología clásica, debe ser utilizado como una clasificación antropologica y no genetica al designar una sola variante humana.
+ Partes .
+Las partes principales son campana, culata (o parte baja), 2 cuerpos, tudel y caña. El aire recorre desde la caña hacia el tudel, cuerpo chico, culata, cuerpo grande, campana.
 
- Características .
-Estructura física;
- Esqueleto grácil pero resistente.
- Tendencia a la dolicocefalia.
- Ángulo facial pronunciado.
- Paredes del cráneo gruesas y duras.
- Suturas craneanas bien cerradas y compactadas.
- Pómulos altos y prominentes.
- Nariz corta y chata, puente cóncavo y ventanillas dilatadas.
- Ojos generalmente negros o castaños, con iris negro y esclerótica a veces amarilla.
- Labios entre medianos y gruesos.
- Pie ancho y aplanado, arco bajo y talón proyectado hacia atrás.
- Piel gruesa, generalmente de poco vello.
- Tez de marrón claro a marrón muy oscuro casi negro absoluto.
- Pelo elíptico, ruloso y casi plano en sección. Muy rizado, hasta llegar a ser crespo.
- Tendencia al lordotismo, cabeza proyectada hacia atrás.
+ Caña o lengüeta .
+La lengüeta del fagot es una caña doble. Se denomina así porque se trata de dos trozos de caña uno encima del otro, "atados", que vibran cuando se humeden y una columna de aire pasa entre ellos.
+A diferencia del oboe (que también utiliza caña doble), además de superponer las dos cañas estas deben formar un tubo para poder colocarlas en el tudel.
+Luego de armarla el fagotista debe raspar la caña con un cuchillo o lija suave hasta obtener la vibración adecuada.
 
- Pueblos dentro de esta categoría .
- África subsahariana .
-Los Bantúes;
-Del África occidental ;
-Los bubis (Guinea Ecuatorial);
-Del África oriental y meridional;
-Los zulúes (Lesotho, Malawi, Mozambique,Sudáfrica). ;
-Xhosa (Lesotho, Sudáfrica).
-Nilótico;
-Dinka ;
-Nuer;
-Shilluk;
-Masai (Kenia, Tanzania). ;
-Pigmeo;
-Aka;
-Bakafe ;
+ Historia .
+Como ocurre con la mayoría de instrumentos integrantes del muestrario instrumental europeo, el fagot cuenta con famosos precedentes, uno de los cuales puede reflejarse en el impulso que llevó a los músicos romanos a ampliar en su parte grave el aulos (una especie de oboe, legado por los griegos, que en el mundo latino tomó el nombre de tibia bassa, la cual, aún tratándose de un lejano embrión, puede considerarse como el primer intento efectuado dentro de una larga genealogía de instrumentos creados para tal menester).
+venezuela
+Muchas son las hipótesis surgidas en torno a la creación de este instrumento musical, aunque la más difundida concede su autoría a un canónigo de Ferrara, Afranio Teseo (nacido en Pavía, h. 1495), de quien se dice que halló su inspiración en un ejemplar serbocroata, a modo de gaita, alimentado por fuelles laterales. Si bien esta teoría no goza de plena verosimilitud, tampoco ha de desestimarse, ya que el profesor Curt Sachs, el más afamado estudioso de los instrumentos musicales, niega que su raíz se encuentre en un tipo de bombarda italiana del siglo XVI. Su aparición en los tratados teóricos de la citada centuria, así como en los de la siguiente, ya en forma de dulcián o fagot, es muy frecuente. Así, Lodovico Zacconi (Prattica di musica, 1596-1619), Domenico Pietro Cerone (El Melopeo y maestro, 1613), Michael Praetorius (Syntagma musicum, 1615-1619) y Marin Meresenne (Harmonie Universelle, 1636-1637) mostraron su interés por este grave instrumento, en especial el último teórico citado, quien presenta en su obra un fagot bastante evolucionado y equipado con tres llaves. Desde 1620 se conoce, además, un instrumento grave de la familia del fagot, llamado contrafagot, que suena a la octava baja de aquél.
 
- Oceania .
-Australoides;
-Melanesios;
-
- Véase también .
-Caucasoide;
-Mongoloide;
-Australoide;
-Amerindio;
+venezuela
+El fagot, que recibió en algún momento en España la designación de bajón, vivió su expansión en los siglos XVII y XVIII, y, aunque al principio sus funciones las ejerció mayoritariamente dentro de la música eclesiástica, reforzando las voces de los cantores, su presencia en el arte secular arreciaría con el tiempo. Las obras de Castelli (1621), Marini (1626), Selma y Salaverde (1638), Valentini (1639) y Bertali (1645) atestiguan el aprecio hacia el instrumento, estima que compartió Heinrich Schütz , quien en su simphoniae sacrae (1629) le confirió un trato particular. Ya en el siglo XVIII gozó de madurez suficiente como para afianzar su presencia en el campo orquestal y solístico; baste recordar los conciertos escritos para fagot por Vivaldi, todos ellos de corte magistral, o en papel preponderante que le dispensaron compositores como Johann Sebastian Bach, Haendel, Telemann, Fux, Johann Stamitz, Johann Christian Bach y Carl Philipp Emanuel Bach, quienes abrieron la senda para que su timbre hondo y umbrío fuera protagonista de los excelentes conciertos fagotísticos de Mozart y Weber. También es interesante el concierto que compusiera un músico español, Anselmo Viola (1738-1798), monje del monasterio de Monserrat cuya celebridad se debe tanto a sus obras como al hecho de haber sido maestro de Fernando Sor.

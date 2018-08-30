@@ -1,3 +1,13 @@
 1
-david david david computacion david computador, diana diana
-denis fabio
+obispo => 2
+obligaba => 1
+obligaron => 1
+octubre => 1
+operacion => 1
+palencia => 1
+pampliega => 1
+pasar => 1
+paso => 1
+pauli => 1
+paulo => 3
+peligro => 1

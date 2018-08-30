@@ -14,6 +14,80 @@ void printWordList(WordList *wl)
 	}
 	cout<<endl;
 }
+void masive_search(Tree* trie){
+	vector<string> ws;
+	ws.push_back("14");
+	ws.push_back("abril" );
+	ws.push_back("actos");
+	ws.push_back("alumbrara" );
+	ws.push_back("americano" );
+	ws.push_back("americas");
+	ws.push_back("amistad" );
+	ws.push_back("argentina" );
+	ws.push_back("ason" );
+	ws.push_back("bolivia" );
+	ws.push_back("brasil" );
+	ws.push_back("canada" );
+	ws.push_back("cancion" );
+	ws.push_back("cantado" );
+	ws.push_back("canto" );
+	ws.push_back("ceremonias" );
+	ws.push_back("chile" );
+	ws.push_back("colombia" );
+	ws.push_back("colonial" );
+	ws.push_back("conmemoracion"); 
+	ws.push_back("continente" );
+	ws.push_back("costa" );
+	ws.push_back("domingo" );
+	ws.push_back("dominicana"); 
+	ws.push_back("ecuador" );
+	ws.push_back("enlaces" );
+	ws.push_back("eternamente"); 
+	ws.push_back("externos" );
+	ws.push_back("fuerza" );
+	ws.push_back("gloriosamente" );
+	ws.push_back("guatemala"); 
+	ws.push_back("haiti" );
+	ws.push_back("hermandad" );
+	ws.push_back("hermanos"); 
+	ws.push_back("himno" );
+	ws.push_back("honduras" );
+	ws.push_back("incluyen" );
+	ws.push_back("lealtad" );
+	ws.push_back("letra" );
+	ws.push_back("libertad");
+	ws.push_back("mexico" );
+	ws.push_back("musica" );
+	ws.push_back("nicaragua"); 
+	ws.push_back("nombre" );
+	ws.push_back("norteamerica"); 
+	ws.push_back("oficiales" );
+	ws.push_back("optimismo"); 
+	ws.push_back("panama" );
+	ws.push_back("paraguay" );
+	ws.push_back("paz" );
+	ws.push_back("peru" );
+	ws.push_back("republica"); 
+	ws.push_back("rica" );
+	ws.push_back("rodolfo" );
+	ws.push_back("salvador"); 
+	ws.push_back("santo" );
+	ws.push_back("sciamarella"); 
+	ws.push_back("simbolo" );
+	ws.push_back("soberanos"); 
+	ws.push_back("tendra" );
+	ws.push_back("unidos" );
+	ws.push_back("uruguay" );
+	ws.push_back("vecindad" );
+	ws.push_back("venezuela" );
+	ws.push_back("versiones");
+	ws.push_back("vivir");
+	ws.push_back("youtube");
+	for(int i=0;i<ws.size();i++){
+		cout<<"buscando: "<<ws[i]<<" = "; trie->search(ws[i]);
+	}
+	// trie->search(ws[1]);
+}
 
 int main()
 {
@@ -23,29 +97,60 @@ int main()
 	parser->LoadStopWords("../stopWords.txt");	
 	int i=1;
 	bool newDoc = true;
-	for(int i = 1; i<2; ++i)
-	{		
-		wordlist->docId = i;	
-		wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
-		printWordList(wordlist);
+	// for(int i = 1; i<2; ++i)
+	// {		
+	// 	wordlist->docId = i;	
+	// 	wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
+	// 	// printWordList(wordlist);
 		
-		// trie.indexDocument(wordlist->wordList);
-		trie.indexDocument(wordlist);
-		// trie.printTree();
-		wordlist->docId = 0;
-		wordlist->wordList.clear();
-	}
+	// 	trie.indexDocument(wordlist);
+
+	// 	// trie.printTree();
+	// 	wordlist->docId = 0;
+	// 	wordlist->wordList.clear();
+	// }
+	// trie.printTree();
+
+	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
+	printWordList(wordlist);
+	trie.indexDocument(wordlist);
+	wordlist->docId = 2;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
+	printWordList(wordlist);
+	trie.indexDocument(wordlist);
+	
+	trie.Insert("obisp",1,8,5);
 	trie.printTree();
+
+	trie.Insert("opera",1,8,5);
+	trie.printTree();
+
+	trie.Insert("ope",1,14,6);
+	trie.printTree();
+
+	trie.Insert("o",1,1,7);
+	trie.printTree();
+
+trie.Insert("ombligo",1,5,3);
+trie.Insert("ombligo",1,6,4);
+	trie.printTree();
+	
+	trie.Insert("ombligos",1,1,7);
+	trie.printTree();
+	
 	cout<<"----test busqueda(1 palabra)---------"<<endl;
-	trie.search("venezuela");
-	trie.search("ve");
+	trie.search("canada");
+	trie.search("cana");
+
+	
+	// cout<<"----test busqueda(n palabras)---------"<<endl;
+	// masive_search(&trie);
 
 	
 
 // 	wordlist->docId = i;	
-// 	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
-// 	printWordList(wordlist);
-// 	trie.indexDocument(wordlist);
+
 	
 // cout<<"---------------------------------"<<endl;
 // 	wordlist->docId = 0;

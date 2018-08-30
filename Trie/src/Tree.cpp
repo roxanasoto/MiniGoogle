@@ -58,12 +58,14 @@ Node* Tree::Find(string key) {
 }
 set<tuple<int, int>, greater<tuple<int,int>>> Tree::search(string key){
 	Node* rpta = Find(root, key);
+	set<tuple<int, int>, greater<tuple<int,int>>> docs;
 	if(rpta != 0){
 		cout<<"results done..."<<rpta->printTuples()<<endl;
-		
+		// set<tuple<int, int>, greater<tuple<int,int>>> docs = rpta->getTuples();
 		return rpta->getTuples();
 	}
 	cout<<"not results..."<<endl;
+	return docs;
 }
 
 Node* Tree::Find(Node* node, string key) {
@@ -91,13 +93,12 @@ void Tree::Split(Node* node, int k, int freq,int idDoc) { // dividing node accor
 
 	// Word word; word.id=idDoc;
 	// p->addDocument(idDoc);
-	if(node->GetCounter()>0){
+	// if(node->GetCounter()>0){
+	// if(k>node->GetKey().length()){
 		p->setTuples(node->getTuples());
-	}
-	if(node->noTuples()>0)
+	// }
+	if(node->noTuples()<0)
 		p->addTuple(freq,idDoc);
-	
-	
 
 	node->Child() = p;
 	node->GetKey().erase(k, node->GetLength()); //recortar string en nodo padre
@@ -117,8 +118,10 @@ bool Tree::indexDocument(WordList* words){
 	map<string,int> map = words->wordList;
 	cout<<"=========indexando doc N°: "<<words->docId<<endl;
 	// for(int i=0;i<words->wordList.size();i++){
+		int i=1;
 	for (std::map<string,int>::iterator it=map.begin(); it!=map.end(); ++it){
-		cout<<"============palabra a insertar: "<<it->first<<endl;
+		cout<<"============palabra a insertar: "<<i<<" "<<it->first<<endl;
+		i++;
 		// cout<<"word: "<<it->first<<", it: "<<it->second<<endl;
 		// map<string,int> map=words->wordList;
 		//modificar...
