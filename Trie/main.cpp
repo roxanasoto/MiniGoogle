@@ -27,8 +27,10 @@ int main()
 		wordlist->docId = i;	
 		wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
 		InsertWords(wordlist);
-		trie.indexDocument(wordlist->wordList);
+		
+		// trie.indexDocument(wordlist->wordList);
 		trie.indexDocument(wordlist);
+		trie.printTree();
 		wordlist->docId = 0;
 		wordlist->wordList = {};
 	}
@@ -48,15 +50,15 @@ int main()
 	// trie.Insert("honesto",1,1);
 	// trie.printTree();
 	// trie.Insert("himno",1,1);
-	trie.printTree();
+	// trie.printTree();
 
 
 	// trie.setIdLastDocument(1);
-	trie.restarCounters();
+	// trie.restarCounters();
 	// trie.Insert("himno",1,2);
 	// trie.printTree();
 	// trie.Insert("himno",1,2);
-	trie.printTree();
+	// trie.printTree();
 	
 
 	return 0;

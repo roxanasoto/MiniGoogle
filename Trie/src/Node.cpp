@@ -32,7 +32,8 @@ string Node::printDocuments(){
 	string cad = "[";
 	int size = documents->size();
 	for(int i=0;i<size;i++){
-		cad = cad+"("+to_string((*documents)[i].id)+","+to_string((*documents)[i].freq)+")"+"-";
+		// cad = cad+"("+to_string((*documents)[i].id)+","+to_string((*documents)[i].freq)+")"+"-";
+		cad = cad+to_string((*documents)[i])+",";
 	}
 	cad+="]";
 	return cad;

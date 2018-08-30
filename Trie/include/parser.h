@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <set>
-// #include "wordlist.h"
+#include "wordlist.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ class Parser
 		~Parser();
 			
 		bool LoadStopWords(string fileName);		
-		vector<string> ParseFile(string _inputFile);
+		map<string, int> ParseFile(string _inputFile);
 		bool IsStopWord(string word);
 		void PreProcessWord(string &word);
 		bool IsMark(char sign);		

@@ -35,7 +35,7 @@ public:
 	void printTree();
 	void printNode(Node*);
 
-	bool indexDocument(vector<string> );
+	// bool indexDocument(vector<string> );
 	bool indexDocument(WordList* );
 	string printIdsDocuments(Node* );
 	void setIdLastDocument(int);

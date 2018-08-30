@@ -1,5 +1,5 @@
-#include <vector>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -7,9 +7,8 @@ class WordList
 {
     public:    
         int docId;        
-		vector<string> wordList;
+		map<string, int> wordList;
 
         WordList();
 		~WordList();
-        
 };

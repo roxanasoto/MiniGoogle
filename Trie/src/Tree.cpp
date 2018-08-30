@@ -78,8 +78,8 @@ void Tree::Split(Node* node, int k, int idDoc) { // dividing node according to k
 	// p->setFlacLeaf(leaf);
 	p->Child() = node->Child();
 
-	Word word; word.id=idDoc;
-	p->addDocument(word);
+	// Word word; word.id=idDoc;
+	p->addDocument(idDoc);
 	node->Child() = p;
 	node->GetKey().erase(k, node->GetLength()); //recortar string en nodo padre
 	node->SetLength(k);
@@ -89,34 +89,40 @@ void Tree::Split(Node* node, int k, int idDoc) { // dividing node according to k
 	// node->setFlacLeaf(noleaf);
 }
 
-bool Tree::indexDocument(vector<string> words){
-	if(root!=NULL){
-		this->restarCounters();
-	}
-	// if(words){
-		// Node* p;
-		for(int i=0;i<words.size();i++){
+// bool Tree::indexDocument(vector<string> words){
+// 	// if(root!=NULL){
+// 	// 	this->restarCounters();
+// 	// }
+// 	// if(words){
+// 		// Node* p;
+// 		for(int i=0;i<words.size();i++){
 			
-			Node* p = Insert(root, words[i], 1, 1);
-			if (!root) {
-				root = p;
-			}
-			// cout<<words[i]<<endl;
-		}
-		return true;
-	// }
-	// return false;
+// 			Node* p = Insert(root, words[i], 1, words->docId);
+// 			if (!root) {
+// 				root = p;
+// 			}
+// 			// cout<<words[i]<<endl;
+// 		}
+// 		return true;
+// 	// }
+// 	// return false;
 	
 	
-}
+// }
 bool Tree::indexDocument(WordList* words){
-		for(int i=0;i<words->wordList.size();i++){
-			Node* p = Insert(root, words->wordList[i], 1, words->docId);
-			if (!root) {
-				root = p;
-			}
+	// if(root!=NULL){
+	// 	this->restarCounters();
+	// }
+	vector<string> vec;
+	for(int i=0;i<words->wordList.size();i++){
+		// vec=words->wordList;
+		//modificar...
+		Node* p = Insert(root, 1, 1, words->docId);
+		if (!root) {
+			root = p;
 		}
-		return true;
+	}
+	return true;
 }
 
 bool Tree::Insert(string key, int number,int idDoc) {
@@ -137,8 +143,8 @@ Node* Tree::Insert(Node* node, string key, int number, int idDoc) { // inserting
 	// 	counter_anterior = node->GetCounter();
 	if (!node) {
 		Node* n = new Node(key, key.length(), number);
-		Word word; word.id=idDoc;
-		n->addDocument(word);
+		// Word word; word.id=idDoc;
+		n->addDocument(idDoc);
 		return n;
 	}
 	unsigned int k = Prefix(key, node->GetKey());
@@ -155,8 +161,8 @@ Node* Tree::Insert(Node* node, string key, int number, int idDoc) { // inserting
 			node->GetCounter() += number;
 			// if(node->GetCounter() !=0 && idLastDoc >0 && idLastDoc!=idDoc){
 			if(node->GetCounter() !=0 && node->GetCounter()<=1){
-				Word word; word.id=idDoc;
-				node->addDocument(word);
+				// Word word; word.id=idDoc;
+				node->addDocument(idDoc);
 			// if(node->GetCounter()!=0 && node->noDocuments()>0){
 
 			}
@@ -170,8 +176,8 @@ Node* Tree::Insert(Node* node, string key, int number, int idDoc) { // inserting
 		node->GetCounter() += number;
 		// if(node->GetCounter()!=0&& node->GetCounter()<2)
 		if(node->GetCounter()!=0 && node->GetCounter()<=1){
-			Word word; word.id=idDoc;
-			node->addDocument(word);
+			// Word word; word.id=idDoc;
+			node->addDocument(idDoc);
 		}
 			
 	}

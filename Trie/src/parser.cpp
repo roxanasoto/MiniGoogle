@@ -38,10 +38,12 @@ bool Parser::LoadStopWords(string fileName)
 	return true;
 }
 
-vector<string> Parser::ParseFile(string _inputFile)
+map<string, int> Parser::ParseFile(string _inputFile)
 {    
     ifstream ifs;
-    vector<string> wordsList;
+    map<string, int> wordsList;
+    map<string, int>::iterator it_ins = wordsList.begin();
+    map<string, int>::iterator it_srch = wordsList.begin();
     ifs.open(_inputFile);    
     if (ifs.is_open()){
         bool is_title = true;
@@ -56,8 +58,15 @@ vector<string> Parser::ParseFile(string _inputFile)
 		    while (iss >> word) {
 			    PreProcessWord(word);
                 //Save Word in list
-			    if (!IsStopWord(word) && !word.empty()) {
-		            wordsList.push_back(word);
+			    if (!IsStopWord(word) && !word.empty()) {                    
+                    it_srch = wordsList.find(word);
+                    if (it_srch != wordsList.end()){                        
+                         (*it_srch).second += 1;    
+                    }
+                    else{                        
+                        wordsList.insert (it_ins, pair<string,int>(word,1));
+                        it_ins++;                        
+                    }
 			    }
 		    }
             iss.clear(); 
