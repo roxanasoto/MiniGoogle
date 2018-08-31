@@ -46,5 +46,9 @@ public:
 	void restarCounters(Node*);
 	set<tuple<int, int>, greater<tuple<int,int>>> search(string);
 	bool search(vector<string>);
+	void SaveCloud(string);
+	void LoadCloud(string);
+	void printCloud();
+	vector<int> search_sentence(vector<string> keys);
 	// bool Insert(Word);
 };

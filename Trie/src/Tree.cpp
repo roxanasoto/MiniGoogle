@@ -12,15 +12,6 @@ Tree::~Tree() {
 Node* Tree::GetRoot() {
 	return root;
 }
-// bool Tree::Insert(Word word){
-// 	Node* p = Insert(root, word.cadena, word.freq);
-
-// 	if (!root) {
-// 		root = p;
-// 	}
-
-// 	return true;
-// }
 
 bool Tree::SetRoot(Node* new_root) {
 	/* Aca faltaa try catch o algooo */
@@ -136,6 +127,118 @@ bool Tree::search(vector<string> keys){
 		cout<<"ningun documento contiene toda la oracion..."<<endl;
 	}
 	return true;
+}
+
+// vector<int> intersection(map<int,int>& mapa, vector<vector<int>>& docs_by_word, int idx_min){
+// 	vector<int> result;
+// 	map<int,int>::iterator map_it;
+// 	for(int i=0;i<docs_by_word.size() && i!= idx_min;i++){//recorrer los demas resultados
+// 		vector<int> docs = docs_by_word[i];
+// 		for(int j=0;j<docs.size();j++){//recorrer
+// 			map_it = mapa.find(docs[j]);
+// 			if(map_it!=mapa.end()){
+// 				mapa[docs[j]] ++;
+// 			}
+// 		}
+// 	}
+// 	return result;
+// }
+void print_vector(vector<int> vec){
+	cout <<"======================= "<<endl;
+	for(int i=0;i<vec.size();i++){
+		cout<<vec[i]<<endl;
+	}
+}
+vector<int> intersection(vector<vector<int>>& docs_by_word, int idx_min){
+	// oredenar vectores por tamaño
+	std::sort(docs_by_word.begin(), docs_by_word.end(), [](const vector<int> & a, const vector<int> & b){ return a.size() < b.size(); });
+	// print_vector(docs_by_word[0]);
+	// print_vector(docs_by_word[1]);
+	// print_vector(docs_by_word[2]);
+
+	vector<int> result;
+	vector<int> docs_minimo = docs_by_word[0];
+	vector<int> copy;
+	sort(docs_minimo.begin(), docs_minimo.end());
+	// print_vector(docs_by_word[idx_min]);
+	vector<int>::iterator it;
+	bool flac = false;
+    // cout <<"buscando interseccion... "<<idx_min<<" "<<docs_by_word.size()<<endl;
+	for(int i=1;i<docs_by_word.size() ;i++){//recorrer los demas resultados
+		// if(i!= idx_min){
+			// cout <<"wntrooooooooooo "<<endl;
+			copy = docs_by_word[i];
+			sort(copy.begin(), copy.end());
+			// print_vector(docs_by_word[i]);
+			result.resize(docs_minimo.size());
+			it = set_intersection(docs_minimo.begin(),docs_minimo.end(),copy.begin(),copy.end(),result.begin());
+			result.resize(it-result.begin()); 
+			
+
+			if(result.size()==docs_minimo.size()){ //existen todas las intersecciones
+				// cout <<"hay: "<<result.size()<<" intersecciones"<<endl;
+				
+				flac = true;
+			}
+			else{
+				flac=false;
+				cout <<"no hay interseccion completa..."<<endl;
+				return result;
+			}
+			print_vector(result);
+			result.clear();
+			result.resize(0);
+		// }
+		
+	}
+	
+	return result;
+}
+
+vector<int> Tree::search_sentence(vector<string> keys){
+	vector<int> results;
+	vector<vector<int>> docs_by_word;
+	Node* rpta=0;
+	int id_row_in_cloud = 0;
+	for(int i=0;i<keys.size();i++){ //buscar cada palabra en el trie y guardar vector de resultados en un vector de vectores
+		rpta = Find(root, keys[i]); //buscar palabra en el arbol
+		if(rpta != 0){ //encontro la palabra
+			
+			id_row_in_cloud = rpta->GetCounter()-1;
+			cout<<" is done...id in cloud: "<<id_row_in_cloud+1<<endl;
+			docs_by_word.push_back(this->cloud->getRow(id_row_in_cloud).docs);
+			// print_vector(this->cloud->getRow(id_row_in_cloud).docs);
+		}
+		else{
+			cout<<" not results..."<<endl;
+		}
+	}
+	if(docs_by_word.size()==0){
+		cout<<"0 coincidencias..."<<endl;
+	}
+	if(docs_by_word.size()>0){
+		int index_min_set=0;
+		int minsize = docs_by_word[0].size();
+		for(int i=1;i<docs_by_word.size();i++){ //buscar el vector con menos elementos
+			if(docs_by_word[i].size()<minsize){
+				minsize = docs_by_word[i].size();
+				index_min_set = i;
+			}
+		}
+		cout<<" minsize: "<<minsize<<" index: "<<index_min_set<<endl;
+		//crear mapa <int,int> para almacenar interseccions/ la clave del mapa sera los ids del vector mas pequeño de la
+		//busqueda anterior
+		// map<int,int> map_intersec;
+		// map<int, int>::iterator map_it;
+		// int idDoc;
+		// //recorrer set de tamaño minimo
+		// for(int i=0;i<docs_by_word[index_min_set].size();i++){
+		// 	map_intersec.insert ( pair<int,int>(docs_by_word[index_min_set][i],1) );
+		// 	cout<<"mapa: "<<docs_by_word[index_min_set][i]<<": "<<map_intersec[docs_by_word[index_min_set][i]]<<endl;
+		// }
+		intersection(docs_by_word,index_min_set);
+	}
+	return results;
 }
 
 Node* Tree::Find(Node* node, string key) {
@@ -349,7 +452,6 @@ void Tree::TraversalLoad(Node *&node, ifstream &file, istringstream &iss) {
 	iss.clear();
 }
 
-
 void Tree::Load(string directory) {
 
 	ifstream file;
@@ -366,4 +468,49 @@ void Tree::Load(string directory) {
 
 	file.close();
 
+}
+void Tree::SaveCloud(string directory){
+	ofstream file;
+
+	file.open(directory);
+	if(this->cloud != 0){
+		Row row;
+		int cloud_size = this->cloud->cloudSize();
+		int i =2;
+		for(int i=0;i<cloud_size;i++){
+			row = this->cloud->getRow(i);
+			file<<row.id<<'/'<<this->cloud->string_ids_of_row(i);
+		}
+	}
+	// TraversalSave(root, file);
+
+	file.close();
+}
+ 
+void Tree::LoadCloud(string directory){
+	ifstream file;
+	istringstream iss;
+	string content;
+	file.open(directory);
+	string id; int id_row;
+	int idDoc;
+	string linea;
+	while(getline(file, linea, '\n')){
+		
+		Row row;
+		iss.str(linea);
+		getline(iss, id, '/');
+		id_row = stoi(id);
+		row.id  = id_row;
+		while(iss>>idDoc){
+			row.docs.push_back(idDoc);
+		}
+		this->cloud->insert(row);
+		iss.clear();
+	}
+	file.close();
+	// cloud->printCloud();
+}
+void Tree::printCloud(){
+	cloud->printCloud();
 }

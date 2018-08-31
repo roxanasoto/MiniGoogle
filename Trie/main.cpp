@@ -122,6 +122,9 @@ int main()
 	bool newDoc = true;	
 	clock_t start,end;
 
+	string persistence_tree = "persistence_tree.txt";
+	string persistence_cloud = "persistence_cloud.txt";
+
 	// start = clock();
 	// for(int i = 0; i<files.size(); ++i)
 	// {	
@@ -142,72 +145,83 @@ int main()
 
 	// trie.printTree();
 
-	// wordlist->docId = 1;
-	// wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
-	// printWordList(wordlist);
-	// trie->indexDocument(wordlist);
+	wordlist->docId = 1;
+	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
+	printWordList(wordlist);
+	trie->indexDocument(wordlist);
 	// trie->printTree();
 
-	// wordlist->docId = 2;
-	// wordlist->wordList.clear();
-	// wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
-	// printWordList(wordlist);
-	// trie->indexDocument(wordlist);
+	wordlist->docId = 2;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
+	printWordList(wordlist);
+	trie->indexDocument(wordlist);
 	// trie->printTree();
 
+	wordlist->docId = 3;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d3.txt");
+	printWordList(wordlist);
+	trie->indexDocument(wordlist);
+	// trie->printTree();
 
-	// cout<<"----test save---------"<<endl;
-	// trie->Save("persistence.txt");
+	wordlist->docId = 4;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d4.txt");
+	printWordList(wordlist);
+	trie->indexDocument(wordlist);
+
+	wordlist->docId = 5;
+	wordlist->wordList.clear();
+	wordlist->wordList = parser->ParseFile("../Docs/d5.txt");
+	printWordList(wordlist);
+	trie->indexDocument(wordlist);
+	// trie->printTree();
+	// trie->Insert("obisp",1,8,5);
+	trie->printTree();
+
+
+	cout<<"----test save---------"<<endl;
+	trie->Save(persistence_tree);
+	trie->SaveCloud(persistence_cloud);
 	
 	
-	// delete trie;
+	delete trie;
 
 cout<<"----test load---------"<<endl;
 	Tree* trie2 = new Tree();
 	clock_t start_l,end_l;
 	start_l = clock();
-	trie2->Load("persistence.txt");
+	trie2->Load(persistence_tree);
 	end_l = clock();
 	cout<<"Total Time Processing (loading): "<<(end_l - start_l)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
 	
-	// cout<<"----printing trie2---------"<<endl;
-	// trie2->printTree();
+	cout<<"----printing trie2---------"<<endl;
+	trie2->printTree();
 
-clock_t start_search,end_search;
-start_search = clock();
-	trie2->search("califato");
-end_search = clock();
+	cout<<"----probando load cloud---------"<<endl;
+	trie2->LoadCloud(persistence_cloud);
+	trie2->printCloud();
 
-cout<<"Total Time Searching: "<<(end_search - start_search)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+	cout<<"----test busqueda(n palabras)---------"<<endl;
+	vector<string> oracion; oracion.push_back("historia"); oracion.push_back("computacion");
+	oracion.push_back("david");
+	trie2->search_sentence(oracion);
+
+// clock_t start_search,end_search;
+// start_search = clock();
+// 	trie2->search("califato");
+// end_search = clock();
+
+// cout<<"Total Time Searching: "<<(end_search - start_search)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
 
 
-start_search = clock();
-	trie2->search("nacimientos");
-end_search = clock();
+// start_search = clock();
+// 	trie2->search("nacimientos");
+// end_search = clock();
 
-cout<<"Total Time Searching: "<<(end_search - start_search)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
-	// wordlist->docId = 2;
-	// wordlist->wordList.clear();
-	// wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
-	// printWordList(wordlist);
-	// trie.indexDocument(wordlist);
-	// trie.printTree();
-
-	// wordlist->docId = 3;
-	// wordlist->wordList.clear();
-	// wordlist->wordList = parser->ParseFile("../Docs/d3.txt");
-	// printWordList(wordlist);
-	// trie.indexDocument(wordlist);
-	// trie.printTree();
-
-	// wordlist->docId = 4;
-	// wordlist->wordList.clear();
-	// wordlist->wordList = parser->ParseFile("../Docs/d4.txt");
-	// printWordList(wordlist);
-	// trie.indexDocument(wordlist);
-	// trie.printTree();
-	// trie.Insert("obisp",1,8,5);
-	// trie.printTree();
+// cout<<"Total Time Searching: "<<(end_search - start_search)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+	
 
 	// trie.Insert("opera",1,8,5);
 	// trie.printTree();

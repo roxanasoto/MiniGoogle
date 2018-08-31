@@ -12,4 +12,9 @@ public:
     Cloud();
     ~Cloud();
     int insert(set<tuple<int, int>, greater<tuple<int,int>>> nodo_tuplas);
+    void insert(Row row);
+    Row getRow(int index);
+    int cloudSize();
+    string string_ids_of_row(int index);
+    void printCloud();
 };
