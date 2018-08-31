@@ -6,6 +6,9 @@
 // #include "types.h"
 #include <vector>
 #include "wordlist.h"
+#include "Cloud.h"
+#include <sstream>
+using std::stringstream;
 using namespace std;
 
 
@@ -13,7 +16,7 @@ class Tree{
 private:
 	Node* root;
 	int idLastDoc;
-
+	Cloud* cloud;
 public:
 	Tree();
 	~Tree();

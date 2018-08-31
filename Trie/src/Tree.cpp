@@ -3,7 +3,7 @@
 
 Tree::Tree() {
 	this->root = NULL;
-	this->idLastDoc = 0;
+	this->idLastDoc = 0;this->cloud = new Cloud();
 }
 
 Tree::~Tree() {
@@ -148,7 +148,8 @@ Node* Tree::Find(Node* node, string key) {
 	} if (k < node->GetLength()) {//el nodo actual no esta particionado para el prefijo buscado
 		return 0;
 	} if (k == key.length()) {
-		if(node->noTuples()>0)
+		// if(node->noTuples()>0)
+		if(node->GetCounter()!=-1)
 			return node;
 		return 0;
 	}
@@ -283,82 +284,86 @@ string Tree::printIdsDocuments(Node* node){
 }
 
 // 
-// void Tree::TraversalSave(Node *node, ofstream &out) {
-// 	if (!node) {
-// 		out<< ";";
-// 	}
-// 	else {
-// 		out << node->GetKey() << '/' << node->GetCounter();
-// 		if (node->Child()) {
-// 			out << ",";
-// 		}
-// 		TraversalSave(node->Child(), out);
-// 		TraversalSave(node->Brother(), out);
-// 	}
-// }
+void Tree::TraversalSave(Node *node, ofstream &out) {
+	if (!node) {
+		out<< ";";
+	}
+	else {
+		int id = cloud->insert(node->getTuples());
+		// out << node->GetKey() << '/' << node->GetCounter();
+		out << node->GetKey() << '/' << id;
+
+
+		if (node->Child()) {
+			out << ",";
+		}
+		TraversalSave(node->Child(), out);
+		TraversalSave(node->Brother(), out);
+	}
+}
+
+
+void Tree::Save(string directory) {
+	ofstream file;
+
+	file.open(directory);
+
+	TraversalSave(root, file);
+
+	file.close();
+}
 
 // 
-// void Tree::Save(string directory) {
-// 	ofstream file;
+void Tree::TraversalLoad(Node *&node, ifstream &file, istringstream &iss) {
 
-// 	file.open(directory);
+	string content, data, key;
+	int number;
 
-// 	TraversalSave(root, file);
+	istringstream issdata;
 
-// 	file.close();
-// }
+	if (iss.rdbuf()->in_avail()) {
 
-// 
-// void Tree::TraversalLoad(Node *&node, ifstream &file, istringstream &iss) {
+		getline(iss, data, ',');
 
-// 	string content, data, key;
-// 	int number;
+		issdata.str(data);
 
-// 	istringstream issdata;
+		getline(issdata, key, '/');
 
-// 	if (iss.rdbuf()->in_avail()) {
+		issdata >> number;
 
-// 		getline(iss, data, ',');
+		issdata.clear();
 
-// 		issdata.str(data);
+		node = new Node(key, key.length(), number);
 
-// 		getline(issdata, key, '/');
+		TraversalLoad(node->Child(), file, iss);
 
-// 		issdata >> number;
+		if (!file.eof()) {
 
-// 		issdata.clear();
+			getline(file, content, ';');
+			iss.str(content);
 
-// 		node = new Node(key, key.length(), number);
+			TraversalLoad(node->Brother(), file, iss);
+			iss.clear();
+		}
+	}
+	iss.clear();
+}
 
-// 		TraversalLoad(node->Child(), file, iss);
 
-// 		if (!file.eof()) {
+void Tree::Load(string directory) {
 
-// 			getline(file, content, ';');
-// 			iss.str(content);
+	ifstream file;
+	istringstream iss;
+	string content;
 
-// 			TraversalLoad(node->Brother(), file, iss);
-// 			iss.clear();
-// 		}
-// 	}
-// 	iss.clear();
-// }
+	Node *&node = root;
+	file.open(directory);
 
-// 
-// void Tree::Load(string directory) {
+	getline(file, content, ';');
+	iss.str(content);
 
-// 	ifstream file;
-// 	istringstream iss;
-// 	string content;
+	TraversalLoad(node, file, iss);
 
-// 	Node *&node = root;
-// 	file.open(directory);
+	file.close();
 
-// 	getline(file, content, ';');
-// 	iss.str(content);
-
-// 	TraversalLoad(node, file, iss);
-
-// 	file.close();
-
-// }
+}

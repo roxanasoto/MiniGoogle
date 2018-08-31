@@ -1,3 +1,0 @@
-/home/david/Escritorio/git-miniGoogle/MiniGoogle/Trie/build/CMakeFiles/rebuild_cache.dir
-/home/david/Escritorio/git-miniGoogle/MiniGoogle/Trie/build/CMakeFiles/main_exe.dir
-/home/david/Escritorio/git-miniGoogle/MiniGoogle/Trie/build/CMakeFiles/edit_cache.dir

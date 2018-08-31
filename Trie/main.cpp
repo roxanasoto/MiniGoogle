@@ -110,7 +110,7 @@ vector<string> GetDirectoryFiles(const string& dir)
 
 int main()
 {
-	Tree trie = Tree();
+	Tree* trie = new Tree();
 	Parser *parser = new Parser();
 	WordList *wordlist = new WordList();
 	string directory_path = string("../../../DocsTest");
@@ -122,52 +122,90 @@ int main()
 	bool newDoc = true;	
 	clock_t start,end;
 
-	start = clock();
-	for(int i = 0; i<files.size(); ++i)
-	{	
-		if(files[i].compare(".") != 0 && files[i].compare("..") != 0){			
-			wordlist->docId = stoi(files[i].substr(0,files[i].length() -4));	
-			wordlist->wordList = parser->ParseFile(directory_path+"/"+to_string(wordlist->docId)+".txt");					
-			// trie.indexDocument(wosubrdlist->wordList);
-			trie.indexDocument(wordlist);			
-			//cout<<"Doc: "<<	wordlist->docId <<" processed.";	
-			wordlist->docId = 0;
-			wordlist->wordList.clear();			
-		}		
-	}
-	end = clock();
-	cout<<endl<<endl;
-	cout<<"Total Time Processing: "<<(end - start)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+	// start = clock();
+	// for(int i = 0; i<files.size(); ++i)
+	// {	
+	// 	if(files[i].compare(".") != 0 && files[i].compare("..") != 0){			
+	// 		wordlist->docId = stoi(files[i].substr(0,files[i].length() -4));	
+	// 		wordlist->wordList = parser->ParseFile(directory_path+"/"+to_string(wordlist->docId)+".txt");					
+	// 		// trie.indexDocument(wosubrdlist->wordList);
+	// 		trie->indexDocument(wordlist);			
+	// 		//cout<<"Doc: "<<	wordlist->docId <<" processed.";	
+	// 		wordlist->docId = 0;
+	// 		wordlist->wordList.clear();			
+	// 	}		
+	// }
+	// end = clock();
+	// cout<<endl<<endl;
+	// cout<<"Total Time Processing (Indexing): "<<(end - start)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
 	
 
-	trie.printTree();
+	// trie.printTree();
 
-	/*wordlist->docId = 1;
-	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
-	printWordList(wordlist);
-	trie.indexDocument(wordlist);
-	trie.printTree();
+	// wordlist->docId = 1;
+	// wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
+	// printWordList(wordlist);
+	// trie->indexDocument(wordlist);
+	// trie->printTree();
 
-	wordlist->docId = 2;
-	wordlist->wordList.clear();
-	wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
-	printWordList(wordlist);
-	trie.indexDocument(wordlist);
-	trie.printTree();
+	// wordlist->docId = 2;
+	// wordlist->wordList.clear();
+	// wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
+	// printWordList(wordlist);
+	// trie->indexDocument(wordlist);
+	// trie->printTree();
 
-	wordlist->docId = 3;
-	wordlist->wordList.clear();
-	wordlist->wordList = parser->ParseFile("../Docs/d3.txt");
-	printWordList(wordlist);
-	trie.indexDocument(wordlist);
-	trie.printTree();
 
-	wordlist->docId = 4;
-	wordlist->wordList.clear();
-	wordlist->wordList = parser->ParseFile("../Docs/d4.txt");
-	printWordList(wordlist);
-	trie.indexDocument(wordlist);
-	trie.printTree();*/
+	// cout<<"----test save---------"<<endl;
+	// trie->Save("persistence.txt");
+	
+	
+	// delete trie;
+
+cout<<"----test load---------"<<endl;
+	Tree* trie2 = new Tree();
+	clock_t start_l,end_l;
+	start_l = clock();
+	trie2->Load("persistence.txt");
+	end_l = clock();
+	cout<<"Total Time Processing (loading): "<<(end_l - start_l)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+	
+	// cout<<"----printing trie2---------"<<endl;
+	// trie2->printTree();
+
+clock_t start_search,end_search;
+start_search = clock();
+	trie2->search("califato");
+end_search = clock();
+
+cout<<"Total Time Searching: "<<(end_search - start_search)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+
+
+start_search = clock();
+	trie2->search("nacimientos");
+end_search = clock();
+
+cout<<"Total Time Searching: "<<(end_search - start_search)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+	// wordlist->docId = 2;
+	// wordlist->wordList.clear();
+	// wordlist->wordList = parser->ParseFile("../Docs/d2.txt");
+	// printWordList(wordlist);
+	// trie.indexDocument(wordlist);
+	// trie.printTree();
+
+	// wordlist->docId = 3;
+	// wordlist->wordList.clear();
+	// wordlist->wordList = parser->ParseFile("../Docs/d3.txt");
+	// printWordList(wordlist);
+	// trie.indexDocument(wordlist);
+	// trie.printTree();
+
+	// wordlist->docId = 4;
+	// wordlist->wordList.clear();
+	// wordlist->wordList = parser->ParseFile("../Docs/d4.txt");
+	// printWordList(wordlist);
+	// trie.indexDocument(wordlist);
+	// trie.printTree();
 	// trie.Insert("obisp",1,8,5);
 	// trie.printTree();
 
@@ -194,10 +232,10 @@ int main()
 	// trie.search("david");
 	// trie.search("himno");
 	// trie.search("test");
-		cout<<"----test busqueda(n palabras)---------"<<endl;
-		vector<string> oracion; oracion.push_back("historia"); oracion.push_back("computacion");
-	trie.search(oracion);
-	// trie.search("computacion");
+	// 	cout<<"----test busqueda(n palabras)---------"<<endl;
+	// 	vector<string> oracion; oracion.push_back("historia"); oracion.push_back("computacion");
+	// trie.search(oracion);
+	
 	// trie.search("historia");
 	
 	// cout<<"----test busqueda(n palabras)---------"<<endl;
