@@ -1,4 +1,7 @@
 #include <iostream>
+#include <dirent.h>
+#include <cstring>
+#include <memory>
 #include "include/parser.h"
 #include "include/Tree.h"
 
@@ -89,29 +92,57 @@ void masive_search(Tree* trie){
 	// trie->search(ws[1]);
 }
 
+vector<string> GetDirectoryFiles(const string& dir) 
+{
+  	vector<string> files;
+  	shared_ptr<DIR> directory_ptr(opendir(dir.c_str()), [](DIR* dir){ dir && closedir(dir); });
+  	struct dirent *dirent_ptr;
+  	if (!directory_ptr) {
+	    cout << "- Error opening : " << strerror(errno) << dir << endl;
+    	return files;
+  	}
+ 
+  	while ((dirent_ptr = readdir(directory_ptr.get())) != nullptr) {
+    	files.push_back(string(dirent_ptr->d_name));
+  	}
+  	return files;
+}
+
 int main()
 {
 	Tree trie = Tree();
 	Parser *parser = new Parser();
 	WordList *wordlist = new WordList();
+	string directory_path = string("../../../DocsTest");
+	vector<string> files = GetDirectoryFiles(directory_path);
+  		  
 	parser->LoadStopWords("../stopWords.txt");	
+	
 	int i=1;
-	bool newDoc = true;
-	// for(int i = 1; i<5; ++i)
-	// {		
-	// 	wordlist->docId = i;	
-	// 	wordlist->wordList = parser->ParseFile("../Docs/"+to_string(i)+".txt");
-	// 	// printWordList(wordlist);
-		
-	// 	trie.indexDocument(wordlist);
+	bool newDoc = true;	
+	clock_t start,end;
 
-	// 	// trie.printTree();
-	// 	wordlist->docId = 0;
-	// 	wordlist->wordList.clear();
-	// }
-	// trie.printTree();
+	start = clock();
+	for(int i = 0; i<files.size(); ++i)
+	{	
+		if(files[i].compare(".") != 0 && files[i].compare("..") != 0){			
+			wordlist->docId = stoi(files[i].substr(0,files[i].length() -4));	
+			wordlist->wordList = parser->ParseFile(directory_path+"/"+to_string(wordlist->docId)+".txt");					
+			// trie.indexDocument(wosubrdlist->wordList);
+			trie.indexDocument(wordlist);			
+			//cout<<"Doc: "<<	wordlist->docId <<" processed.";	
+			wordlist->docId = 0;
+			wordlist->wordList.clear();			
+		}		
+	}
+	end = clock();
+	cout<<endl<<endl;
+	cout<<"Total Time Processing: "<<(end - start)/(double)CLOCKS_PER_SEC <<" seconds."<< endl;
+	
 
-	wordlist->docId = 1;
+	trie.printTree();
+
+	/*wordlist->docId = 1;
 	wordlist->wordList = parser->ParseFile("../Docs/d1.txt");
 	printWordList(wordlist);
 	trie.indexDocument(wordlist);
@@ -136,7 +167,7 @@ int main()
 	wordlist->wordList = parser->ParseFile("../Docs/d4.txt");
 	printWordList(wordlist);
 	trie.indexDocument(wordlist);
-	trie.printTree();
+	trie.printTree();*/
 	// trie.Insert("obisp",1,8,5);
 	// trie.printTree();
 
